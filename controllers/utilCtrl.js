@@ -53,3 +53,22 @@ exports.checkIP = function(req, res, next) {
     }
   }
 };
+
+exports.allowCrossDomain = function(req, res, next) {
+  if(req.headers.origin) {
+    res.header("Access-Control-Allow-Origin", req.headers.origin);
+  }
+  
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header("Access-Control-Max-Age", "15");
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header("Content-Type", "application/json; charset=utf-8");
+  res.header("Access-Control-Allow-Headers", "accept, origin, withcredentials, x-requested-with, content-type");
+
+  // intercept OPTIONS method
+  if ('OPTIONS' == req.method) {
+    res.send(200);
+  } else {
+    next();
+  }
+};
