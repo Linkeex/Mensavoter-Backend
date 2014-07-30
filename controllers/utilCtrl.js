@@ -1,14 +1,15 @@
 var CronJob = require('cron').CronJob;
+var launchCtrl = require('./launchCtrl.js');
 var _ = require('lodash');
 var ips = {};
 
 exports.initCron = function() {
-  var job = new CronJob('00 30 11 * * 1-5', function(){
-    console.log('runs');
-  }, function () {
-    console.log('runs');
-  },
-  true
+  var job = new CronJob('00 01 00 * * 1-5', function(){
+      launchCtrl.init();
+    }, function () {
+      console.log('CronJob: Day has been saved.');
+    },
+    true
   );
 
   job.start();

@@ -31,6 +31,7 @@ if ('development' == app.get('env')) {
 }
 
 launchCtrl.init();
+util.initCron();
 
 app.get('/days/:date', days.getDay);
 

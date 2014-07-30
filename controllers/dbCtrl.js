@@ -82,12 +82,12 @@ exports.vote = function(vote, mealID, date) {
 
           if(res !== null) {
 
-            if(res.meal[mealID]) {
+            if(res.Mensa.meals[mealID]) {
 
               if(vote === 'up') {
-                res.meal[mealID].upvotes += 1;
+                res.Mensa.meals[mealID].upvotes += 1;
               } else {
-                res.meal[mealID].downvotes += 1;
+                res.Mensa.meals[mealID].downvotes += 1;
               }
 
               collection.update({date: date}, res, function(err, docs) {
