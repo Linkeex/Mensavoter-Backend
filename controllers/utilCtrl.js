@@ -18,12 +18,17 @@ exports.initCron = function() {
 exports.getTodayString = function() {
   // js gone totally retard... months from 0 - 11
   var month = new Date().getMonth()+1;
+  var day = new Date().getDate();
 
   if(month < 10) {
-    month = "0"+month;
+    month = '0'+month;
   }
 
-  return new Date().getFullYear()+'-'+month+'-'+new Date().getDate();
+  if(day < 10) {
+    day = '0'+day;
+  }
+
+  return new Date().getFullYear()+'-'+month+'-'+day;
 };
 
 exports.isValidDate = function(dateString) {

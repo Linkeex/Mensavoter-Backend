@@ -54,10 +54,17 @@ var getMensaDay = function(mensaplan) {
   var day = _.where(days, {date: util.getTodayString()})[0];
 
   try {
-    delete day.Bistro;
-    delete day.West;
-    delete day.Prittwitzstr;
+    if(day.Bistro) {
+      delete day.Bistro;
+    }
+    if(day.West) {
+      delete day.West;
+    }
+    if(day.Prittwitzstr) {
+      delete day.Prittwitzstr;
+    }
   } catch(err) {
+    console.error('Error trying to delete other restaurants.', err);
     deferred.reject('There was an error getting the mensa day', err);
   }
   
