@@ -1,1 +1,5 @@
-{ "mongodb": { "url": "mongodb://mensavoter:sprinter23@ds053529.mongolab.com:53529/mensavoter" } }
+{
+  "mongodb": {
+    "url": "mongodb://mensavoter:sprinter23@ds053529.mongolab.com:53529/mensavoter"
+  }
+}
