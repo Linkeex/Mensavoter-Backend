@@ -54,16 +54,16 @@ exports.isValidDate = function(dateString) {
 
 exports.checkIP = function(req, res, next) {
   console.log(ips);
-  console.log(_.contains(ips[req.connection.remoteAddress], req.params.meal));
+  console.log(_.contains(ips[req.headers["x-forwarded-for"]], req.params.meal));
 
-  if(!ips[req.connection.remoteAddress]) {
-    ips[req.connection.remoteAddress] = [req.params.meal];
+  if(!ips[req.headers["x-forwarded-for"]]) {
+    ips[req.headers["x-forwarded-for"]] = [req.params.meal];
     next();
   } else {
-    if(_.contains(ips[req.connection.remoteAddress], req.params.meal)) {
+    if(_.contains(ips[req.headers["x-forwarded-for"]], req.params.meal)) {
       res.send(401, 'You have already voted for this today.');
     } else {
-      ips[req.connection.remoteAddress].push(req.params.meal);
+      ips[req.headers["x-forwarded-for"]].push(req.params.meal);
       next();
     }
   }
