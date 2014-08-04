@@ -46,6 +46,9 @@ exports.isValidDate = function(dateString) {
 };
 
 exports.checkIP = function(req, res, next) {
+  console.log(ips);
+  console.log(_.contains(ips[req.connection.remoteAddress], req.params.meal));
+
   if(!ips[req.connection.remoteAddress]) {
     ips[req.connection.remoteAddress] = [req.params.meal];
     next();
