@@ -4,12 +4,15 @@ var _ = require('lodash');
 var ips = {};
 
 exports.initCron = function() {
-  var job = new CronJob('00 01 00 * * 1-5', function(){
+  var job = new CronJob('00 00 00 * * 1-5', function(){
       launchCtrl.init();
+      ips = {};
+      console.log('Cron Job done.');
     }, function () {
       console.log('CronJob: Day has been saved.');
     },
-    true
+    true,
+    "Europe/Berlin"
   );
 
   job.start();
@@ -39,7 +42,11 @@ exports.isValidDate = function(dateString) {
   }
 
   if(dateList[0] >= 2014 && dateList[0] <= 2100 && dateList[1] > 0 && dateList[1] < 13 && dateList[2] > 0 && dateList[2] < 32) {
-    return true;
+    if(dateList[1] < 10 && dateString.split('-')[1] !== '0'+dateList[1] || dateList[2] < 10 && dateString.split('-')[2] !== '0'+dateList[2]) {
+      return false;
+    } else {
+      return true;
+    }
   } else {
     return false;
   }
@@ -78,5 +85,16 @@ exports.allowCrossDomain = function(req, res, next) {
     res.send(200);
   } else {
     next();
+  }
+};
+
+exports.checkDate = function(req, res, next) {
+  if(req.params.date === 'today') {
+    req.params.date = exports.getTodayString();
+    next();
+  } else if(exports.isValidDate(req.params.date)) {
+    next();
+  } else {
+    res.send(400, 'Date was wrong. YYYY-MM-DD is the right format.');
   }
 };

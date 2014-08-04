@@ -34,10 +34,10 @@ if ('development' == app.get('env')) {
 launchCtrl.init();
 util.initCron();
 
-app.get('/days/:date', days.getDay);
+app.get('/days/:date', util.checkDate, days.getDay);
 
-app.get('/days/:date/meals/:meal/up', util.checkIP, votes.upvote);
-app.get('/days/:date/meals/:meal/down', util.checkIP, votes.downvote);
+app.get('/days/:date/meals/:meal/up', util.checkIP, util.checkDate, votes.upvote);
+app.get('/days/:date/meals/:meal/down', util.checkIP, util.checkDate, votes.downvote);
 
 
 http.createServer(app).listen(app.get('port'), function(){

@@ -18,11 +18,12 @@ exports.init = function() {
       return adjustDayToModel(day);
 
     }).then(function(adjustedDay) {
+
       deferred.resolve(adjustedDay);
+
     }).fail(function(err) {
       deferred.reject(err);
       console.error('There went something wrong fetching and processing the mensaplan JSON', err);
-
     });
 
   return deferred.promise;
@@ -69,7 +70,6 @@ var getMensaDay = function(mensaplan) {
   }
   
   deferred.resolve(day);
-
 
   return deferred.promise;
 };
